@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#006B6F">
+<title>OP-Aufklärung Hallux valgus | Fußzentrum</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #FFF8F2 0%, #FEF3E7 100%);
+    color: #2D3748;
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .stage {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Fortschritts-Indikator */
+  .progress {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 0 16px 0;
+  }
+  .progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 107, 111, 0.2);
+    transition: background 0.2s;
+  }
+  .progress-dot.active { background: #006B6F; }
+  .progress-dot.done { background: rgba(0, 107, 111, 0.5); }
+
+  /* Slide-Container */
+  .slide {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px 20px;
+    box-shadow: 0 2px 12px rgba(0, 107, 111, 0.06);
+    border: 1px solid rgba(0, 107, 111, 0.08);
+  }
+  .slide.active { display: flex; }
+
+  /* Titelseite */
+  .slide-cover {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #006B6F 0%, #008B8F 100%);
+    color: #fff;
+    border: none;
+  }
+  /* Titel-Bild auf Cover-Seite */
+  .cover-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .slide-cover h1 {
+    font-size: 22px;
+    margin: 16px 0 0 0;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.4;
+  }
+  .slide-cover h1 .titel-haupt {
+    display: block;
+    font-size: 28px;
+    margin: 4px 0;
+    letter-spacing: -0.4px;
+  }
+  .slide-cover h1 .titel-zwischen {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.85;
+    margin: 12px 0 4px 0;
+  }
+  .slide-cover .subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 32px;
+    margin-top: 16px;
+  }
+  .slide-cover .icon-large {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+    opacity: 0.95;
+  }
+  .slide-cover .disclaimer-cover {
+    margin-top: auto;
+    padding-top: 24px;
+    font-size: 11px;
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+
+  /* Inhalts-Seiten */
+  .slide-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 12px auto;
+    color: #006B6F;
+  }
+  .slide h2 {
+    font-size: 20px;
+    color: #006B6F;
+    margin: 0 0 16px 0;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+  .slide h3 {
+    font-size: 14px;
+    color: #2D3748;
+    margin: 16px 0 6px 0;
+    font-weight: 700;
+  }
+  .slide p {
+    font-size: 14px;
+    margin: 0 0 12px 0;
+    color: #4A5568;
+    line-height: 1.6;
+  }
+  .slide ul {
+    padding-left: 20px;
+    margin: 8px 0 12px 0;
+  }
+  .slide li {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #4A5568;
+    line-height: 1.55;
+  }
+  .info-box {
+    background: rgba(0, 107, 111, 0.06);
+    border-left: 3px solid #006B6F;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #2D3748;
+    line-height: 1.5;
+  }
+  .warn-box {
+    background: rgba(229, 81, 0, 0.08);
+    border-left: 3px solid #E65100;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #2D3748;
+    line-height: 1.5;
+  }
+
+  /* Video-Slot */
+  .video-slot {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background: #1a1a1a;
+    border-radius: 8px;
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  .video-slot iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+  }
+
+  /* Bildhalter (z.B. Röntgenbild) */
+  .image-slot {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #f4f4f4;
+    border: 2px dashed rgba(0, 107, 111, 0.25);
+    border-radius: 8px;
+    margin: 12px 0 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 12px;
+    text-align: center;
+    padding: 16px;
+    line-height: 1.5;
+  }
+  .image-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+  .image-caption {
+    font-size: 11px;
+    color: #718096;
+    text-align: center;
+    margin: 0 0 16px 0;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* Quellen-Footer am Seitenende */
+  .source-footer {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 9px;
+    color: #A0AEC0;
+    line-height: 1.4;
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* Risiko-Liste mit Häufigkeits-Badge */
+  .risk-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 12px 0;
+  }
+  .risk-list li {
+    background: rgba(0, 107, 111, 0.04);
+    border: 1px solid rgba(0, 107, 111, 0.1);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #2D3748;
+  }
+  .risk-list .risk-text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .risk-list .risk-badge {
+    flex: 0 0 auto;
+    background: #006B6F;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+  .risk-list-qual {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 8px 0 12px 0;
+  }
+  .risk-list-qual li {
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: #4A5568;
+    line-height: 1.5;
+  }
+  /* Desktop: Risiken zweispaltig */
+  @media (min-width: 600px) {
+    .risk-list {
+      column-count: 2;
+      column-gap: 10px;
+    }
+    .risk-list li {
+      break-inside: avoid;
+    }
+  }
+
+  /* Navigation */
+  .nav {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.05s, opacity 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  button:active { transform: scale(0.98); }
+  .btn-primary {
+    background: #006B6F;
+    color: #fff;
+    flex: 1;
+  }
+  .btn-primary:hover { background: #00595D; }
+  .btn-secondary {
+    background: #F0F0F0;
+    color: #4A5568;
+    flex: 0 0 auto;
+    padding: 12px 16px;
+  }
+  .btn-secondary:hover { background: #E5E5E5; }
+  .btn-large {
+    padding: 16px 24px;
+    font-size: 16px;
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  /* Bestätigung */
+  .confirm-status {
+    display: none;
+    text-align: center;
+    padding: 16px 0;
+    color: #00897B;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .confirm-status.show { display: block; }
+
+  /* Druckdokument */
+  .print-doc {
+    display: none;
+    background: #fff;
+    padding: 24px;
+    border: 2px dashed rgba(0, 107, 111, 0.25);
+    border-radius: 8px;
+    margin-top: 16px;
+    color: #2D3748;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .print-doc.show { display: block; }
+  .print-doc-header {
+    text-align: center;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #006B6F;
+  }
+  .print-doc-header .placeholder {
+    background: rgba(255, 235, 59, 0.25);
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #6B5500;
+    font-size: 11px;
+    font-style: italic;
+    display: inline-block;
+    margin-top: 4px;
+  }
+  .print-doc h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #006B6F;
+    text-align: center;
+  }
+  .print-doc .field-row {
+    margin: 12px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .print-doc .field {
+    flex: 1;
+    min-width: 180px;
+  }
+  .print-doc .field-label {
+    font-size: 11px;
+    color: #718096;
+    margin-bottom: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .print-doc .field-line {
+    border-bottom: 1px solid #2D3748;
+    height: 24px;
+    margin-bottom: 4px;
+  }
+  .print-doc .filled {
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: 13px;
+    color: #2D3748;
+    padding: 4px 0;
+  }
+  .print-doc .signature-block {
+    margin-top: 28px;
+    page-break-inside: avoid;
+  }
+  .print-doc .timestamp {
+    text-align: center;
+    font-size: 12px;
+    color: #4A5568;
+    margin: 16px 0;
+    padding: 8px;
+    background: rgba(0, 107, 111, 0.04);
+    border-radius: 6px;
+  }
+  .print-doc .disclaimer-print {
+    font-size: 10px;
+    color: #718096;
+    line-height: 1.5;
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-style: italic;
+  }
+
+  /* Print-Style: nur das Druckdokument zeigen */
+  @media print {
+    body {
+      background: #fff;
+      font-size: 10pt;
+      line-height: 1.4;
+    }
+    .stage > *:not(.slide-confirm) { display: none !important; }
+    .slide-confirm > *:not(.print-doc) { display: none !important; }
+    .slide-confirm {
+      display: flex !important;
+      box-shadow: none;
+      border: none;
+      padding: 0;
+    }
+    .print-doc {
+      display: block !important;
+      border: none;
+      padding: 0;
+      font-size: 10pt;
+      line-height: 1.4;
+      page-break-inside: avoid;
+    }
+    .print-doc h3 {
+      color: #000 !important;
+      font-size: 13pt;
+      margin: 0 0 4pt 0;
+    }
+    .print-doc-header {
+      border-bottom-color: #000 !important;
+      padding-bottom: 6pt;
+      margin-bottom: 8pt;
+    }
+    .print-doc-header .placeholder {
+      background: #f0f0f0 !important;
+      color: #555 !important;
+      font-size: 8pt !important;
+      padding: 2pt 6pt !important;
+    }
+    .field-line { border-bottom-color: #000 !important; height: 18pt !important; }
+    .print-doc .field-row { margin: 6pt 0 !important; }
+    .print-doc .field-label { font-size: 8pt !important; margin-bottom: 1pt !important; }
+    .print-doc .filled { font-size: 10pt !important; padding: 2pt 0 !important; }
+    .print-doc .timestamp {
+      margin: 8pt 0 !important;
+      padding: 4pt !important;
+      background: #f5f5f5 !important;
+      font-size: 9pt !important;
+    }
+    .print-doc p { margin: 6pt 0 !important; font-size: 9.5pt !important; }
+    .print-doc .signature-block { margin-top: 12pt !important; }
+    .print-doc .signature-block .field-row[style] { margin-top: 14pt !important; }
+    .print-doc .disclaimer-print {
+      font-size: 7.5pt !important;
+      margin-top: 10pt !important;
+      padding-top: 6pt !important;
+    }
+    .print-doc .source-footer-print {
+      font-size: 7pt !important;
+      margin-top: 6pt !important;
+      color: #666 !important;
+      text-align: center !important;
+      font-style: italic !important;
+    }
+    @page {
+      size: A4;
+      margin: 1.8cm 2cm;
+    }
+  }
+  /* Source-Footer im Druckdokument (nur sichtbar im Druck) */
+  .print-doc .source-footer-print {
+    display: none;
+  }
+  @media print {
+    .print-doc .source-footer-print {
+      display: block !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- Fortschrittsanzeige -->
+  <div class="progress" id="progress" aria-hidden="true">
+    <div class="progress-dot active"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+    <div class="progress-dot"></div>
+  </div>
+
+  <!-- Seite 0: Titel -->
+  <section class="slide slide-cover active" data-step="0">
+    <img class="cover-image" src="aufklaerung_chevron_titel.jpg" alt="Hallux valgus" loading="eager">
+    <h1>
+      <span class="titel-zwischen">Informationen zum</span>
+      <span class="titel-haupt">Hallux valgus</span>
+      <span class="titel-zwischen">und der operativen Option mit</span>
+      <span class="titel-haupt">Chevron-Akin-Osteotomie</span>
+    </h1>
+    <button class="btn-primary btn-large" onclick="goNext()">Aufklärung starten</button>
+    <div class="disclaimer-cover">
+      Diese Information ergänzt das ärztliche Aufklärungsgespräch und ersetzt es nicht. Das persönliche Gespräch mit Ihrer Operateurin/Ihrem Operateur ist Pflichtbestandteil jeder Operation.
+    </div>
+  </section>
+
+  <!-- Seite 1: Krankheitsbild -->
+  <section class="slide" data-step="1">
+    <svg class="slide-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 50 Q 14 40, 18 36 L 24 28 Q 28 22, 26 14 L 30 12 Q 34 14, 36 22 L 38 32 Q 40 36, 44 36 L 50 36 Q 54 40, 50 46 L 18 54 Q 14 54, 14 50 Z"/>
+      <circle cx="42" cy="22" r="6" fill="currentColor" opacity="0.2"/>
+      <circle cx="42" cy="22" r="6"/>
+    </svg>
+    <h2>Was ist ein Hallux valgus?</h2>
+
+    <div class="video-slot" id="videoSlotKB">
+      <!-- Hier später YouTube-iframe einsetzen, z.B.:
+           <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID?rel=0&modestbranding=1" allowfullscreen></iframe>
+      -->
+      📹 Video Krankheitsbild<br><span style="font-size:11px;opacity:0.7">(YouTube-Embed-Slot, später durch Video-ID ersetzen)</span>
+    </div>
+
+    <p>Der Hallux valgus, umgangssprachlich auch <strong>Ballenzehe</strong> genannt, ist eine Deformität der Großzehe. Die Großzehe weicht dabei nach außen ab, der erste Mittelfußknochen weicht nach innen ab. Aus dieser Fehlstellung resultiert eine knöcherne Vorwölbung am Großzehengrundgelenk.</p>
+
+    <div class="image-slot" id="imageSlotRoentgen">
+      <!-- Hier später <img src="..." alt="Röntgenbild Hallux valgus mit eingezeichneten Winkeln"> einsetzen -->
+      🩻 Röntgenbild<br><span style="font-size:11px;opacity:0.7">(Bildhalter — später Röntgenbild mit eingezeichneten Winkeln einfügen)</span>
+    </div>
+    <div class="image-caption">Röntgenaufnahme im Stand: Hallux-Valgus-Winkel (HVA) und Intermetatarsalwinkel (IMA) als Maß für die Fehlstellung.</div>
+
+    <h3>Wie entsteht ein Hallux valgus?</h3>
+    <p>Die genauen Ursachen sind nicht abschließend geklärt. In der Literatur werden verschiedene Faktoren diskutiert: eine familiäre Veranlagung, weitere Fußdeformitäten wie ein Spreizfuß, eine Bindegewebsschwäche oder muskuläre Dysfunktionen. Auch nach Verletzungen oder bei rheumatischen Erkrankungen kann sich ein Hallux valgus entwickeln. Frauen sind häufiger betroffen als Männer.</p>
+
+    <h3>Welche Beschwerden können auftreten?</h3>
+    <p>Die Beschwerden sind individuell sehr unterschiedlich. Manche Menschen haben trotz deutlicher Fehlstellung kaum Schmerzen, andere leiden bereits bei moderater Ausprägung. Mögliche Beschwerden sind:</p>
+    <ul>
+      <li>eine sichtbare Vorwölbung am Großzehengrundgelenk, manchmal gerötet oder druckempfindlich</li>
+      <li>Belastungsschmerzen nach längerem Stehen oder Gehen</li>
+      <li>Druckstellen, Schwielen oder Reizungen der Haut, gelegentlich auch Schleimbeutelentzündungen</li>
+      <li>Schwierigkeiten mit geschlossenem Schuhwerk</li>
+      <li>Veränderungen an den Nachbarzehen oder am Mittelfuß im weiteren Verlauf</li>
+    </ul>
+
+    <div class="info-box">
+      Ein Hallux valgus kann sich im Verlauf verändern. Wie er sich individuell entwickelt, lässt sich nicht vorhersagen — manche Fehlstellungen bleiben über Jahre stabil, andere nehmen zu. Entscheidend für die Behandlungsempfehlung ist nicht das Ausmaß der sichtbaren Fehlstellung, sondern die individuelle Beschwerdelast.
+    </div>
+
+    <div class="source-footer">
+      Diese Information orientiert sich an der S2e-Leitlinie Hallux valgus der DGOU (AWMF-Register-Nr. 187-051, Stand 2024).
+    </div>
+
+    <div class="nav">
+      <button class="btn-secondary" onclick="goPrev()">Zurück</button>
+      <button class="btn-primary" onclick="goNext()">Weiter</button>
+    </div>
+  </section>
+
+  <!-- Seite 2: Konservative Optionen -->
+  <section class="slide" data-step="2">
+    <svg class="slide-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M16 32 L 48 32"/>
+      <path d="M16 32 Q 16 24, 24 24 L 40 24 Q 48 24, 48 32"/>
+      <path d="M16 32 Q 16 40, 24 40 L 40 40 Q 48 40, 48 32"/>
+      <circle cx="22" cy="32" r="2" fill="currentColor"/>
+      <circle cx="32" cy="32" r="2" fill="currentColor"/>
+      <circle cx="42" cy="32" r="2" fill="currentColor"/>
+    </svg>
+    <h2>Welche nicht-operativen Möglichkeiten gibt es?</h2>
+    <p>Bevor eine Operation in Betracht gezogen wird, werden in der Regel zunächst nicht-operative Behandlungen empfohlen. Üblicherweise sollten diese über mindestens drei Monate angewendet werden, bevor eine operative Therapie erwogen wird. Die nicht-operative Behandlung kann Beschwerden lindern.</p>
+
+    <h3>Schuhe und orthopädische Hilfsmittel</h3>
+    <ul>
+      <li>Bequeme Schuhe mit ausreichend breitem Vorfußraum</li>
+      <li>Individuell angepasste Einlagen, ggf. mit Pelotte zur Quergewölbestütze</li>
+      <li>Hallux-valgus-Schienen (Nachtlagerung oder dynamisch tagsüber)</li>
+      <li>Spreizpelotten oder Zehenspreizer</li>
+    </ul>
+    <p>Studien zeigen, dass solche Hilfsmittel die Beschwerden lindern können. Eine Veränderung der knöchernen Fehlstellung selbst wird hingegen kaum beobachtet.</p>
+
+    <h3>Physiotherapie und Schmerzbehandlung</h3>
+    <ul>
+      <li>Manualtherapie und Taping</li>
+      <li>Physiotherapie zur Kräftigung der Fußmuskulatur und Verbesserung der Fußstatik</li>
+      <li>Schmerzlindernde Medikamente bei Bedarf, insbesondere bei akuten Reizzuständen</li>
+      <li>Lokale Behandlung bei entzündlichen Reizungen über der Vorwölbung</li>
+    </ul>
+
+    <div class="info-box">
+      Die Wahl zwischen nicht-operativer und operativer Behandlung ist eine individuelle Entscheidung, die gemeinsam mit Ihrer Operateurin oder Ihrem Operateur getroffen wird. Maßgeblich sind dabei die Stärke Ihrer Beschwerden, Ihre Lebensumstände und Ihre persönlichen Wünsche &mdash; nicht das Ausmaß der sichtbaren Fehlstellung.
+    </div>
+
+    <div class="source-footer">
+      Diese Information orientiert sich an der S2e-Leitlinie Hallux valgus der DGOU (AWMF-Register-Nr. 187-051, Stand 2024).
+    </div>
+
+    <div class="nav">
+      <button class="btn-secondary" onclick="goPrev()">Zurück</button>
+      <button class="btn-primary" onclick="goNext()">Weiter</button>
+    </div>
+  </section>
+
+  <!-- Seite 3: Operatives Vorgehen + Risiken -->
+  <section class="slide" data-step="3">
+    <svg class="slide-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 50 L 30 34 L 38 42 L 54 26"/>
+      <path d="M48 22 L 56 22 L 56 30"/>
+      <circle cx="14" cy="50" r="3" fill="currentColor"/>
+    </svg>
+    <h2>Wie läuft die Operation ab?</h2>
+
+    <p>Wenn nicht-operative Maßnahmen über mindestens drei Monate nicht zu einer ausreichenden Linderung der Beschwerden führen und die Lebensqualität spürbar eingeschränkt ist, kann eine Operation in Betracht gezogen werden. Die Entscheidung wird gemeinsam mit Ihnen getroffen &mdash; sie erfolgt nicht allein anhand der sichtbaren Fehlstellung, sondern auf Grundlage Ihrer individuellen Beschwerden und Lebenssituation.</p>
+
+    <h3>Was soll mit der Operation erreicht werden?</h3>
+    <p>Das primäre Ziel der Operation ist die <strong>Schmerzreduktion</strong>. Sekundäre Ziele sind die Korrektur der Fehlstellung und eine Verbesserung der Funktion. Ein bestimmtes Ergebnis kann nicht garantiert werden &mdash; das individuelle Behandlungsergebnis hängt von vielen Faktoren ab.</p>
+
+    <div class="video-slot" id="videoSlotOP">
+      <!-- Hier später YouTube-iframe einsetzen, z.B.:
+           <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID?rel=0&modestbranding=1" allowfullscreen></iframe>
+      -->
+      📹 Video Operation<br><span style="font-size:11px;opacity:0.7">(YouTube-Embed-Slot, später durch Video-ID ersetzen)</span>
+    </div>
+
+    <h3>Die Chevron-Osteotomie mit ergänzender Akin-Osteotomie</h3>
+    <p>Bei der Chevron-Osteotomie wird der erste Mittelfußknochen am körperfernen Ende V-förmig durchtrennt. Das Mittelfußköpfchen wird dann seitlich verschoben, um die Achse des Großzehengrundgelenks zu korrigieren. Die ergänzende Akin-Osteotomie ist eine Feinkorrektur am Grundglied der Großzehe: ein kleiner keilförmiger Knochenanteil wird entfernt, um die Stellung der Zehe selbst weiter anzupassen.</p>
+    <p>Beide Knochendurchtrennungen werden mit kleinen Titanschrauben stabilisiert. Diese verbleiben in der Regel im Knochen und müssen nicht zwingend entfernt werden.</p>
+
+    <div class="image-slot" id="imageSlotOP">
+      <!-- Hier später <img src="..." alt="OP-Skizze Chevron + Akin"> einsetzen -->
+      🖼 OP-Skizze<br><span style="font-size:11px;opacity:0.7">(Bildhalter — später Skizze der Schnittebenen einfügen)</span>
+    </div>
+    <div class="image-caption">Schematische Darstellung der Schnittführung: V-förmige Chevron-Osteotomie am Mittelfußköpfchen (links), keilförmige Akin-Osteotomie am Grundglied (rechts).</div>
+
+    <h3>Warum dieses Verfahren?</h3>
+    <p>Die Wahl des Operationsverfahrens richtet sich nach dem Schweregrad der Fehlstellung, der anhand der Röntgenwinkel bestimmt wird. Die Chevron-Akin-Osteotomie wird bei leichtem bis moderatem Hallux valgus empfohlen (Hallux-Valgus-Winkel ≤ 40°, Intermetatarsalwinkel ≤ 18°). Bei stärker ausgeprägten Fehlstellungen kommen andere Verfahren in Betracht &mdash; diese werden im persönlichen Gespräch erläutert, falls sie für Sie infrage kommen.</p>
+
+    <h3>Wie geht es nach der Operation weiter?</h3>
+    <p>Die Nachbehandlung wird individuell festgelegt und richtet sich nach dem konkreten Operationsverlauf. Üblicherweise umfasst sie:</p>
+    <ul>
+      <li>regelmäßige Wundkontrollen und Verbandswechsel</li>
+      <li>eine Thromboseprophylaxe in der Frühphase</li>
+      <li>das Tragen eines Verbandsschuhs (Vorfußentlastungsschuh) für mehrere Wochen</li>
+      <li>eine Röntgenkontrolle im Verlauf</li>
+      <li>Physiotherapie zur Beübung des Gelenks und abschwellende Maßnahmen</li>
+      <li>schmerzlindernde Medikamente nach Bedarf</li>
+    </ul>
+    <p>Die genaue Dauer und das Belastungsschema werden individuell festgelegt. Erfahrungsgemäß wird die Bedeutung der Nachbehandlung vor der Operation oft unterschätzt &mdash; eine konsequente Mitarbeit in dieser Phase ist wichtig für das Behandlungsergebnis.</p>
+
+    <h3>Welche Risiken sind möglich?</h3>
+    <p>Wie bei jeder Operation können <strong>allgemeine Komplikationen</strong> auftreten &mdash; etwa Wundinfekte, Nachblutungen, Hämatome, Wundheilungsstörungen, Thrombose, Lungenembolie, Verletzungen von Nerven oder Gefäßen, in seltenen Fällen ein chronisch regionales Schmerzsyndrom (CRPS).</p>
+    <p>Daneben gibt es <strong>eingriffsspezifische Risiken</strong>, über die wir Sie hier ausführlicher informieren möchten. Die folgenden Häufigkeitsangaben sind als Orientierung zu verstehen und stützen sich auf eine eigene Auswertung der wissenschaftlichen Literatur. Die tatsächliche Häufigkeit kann je nach Studie, untersuchter Patientengruppe und Definition der Komplikation abweichen.</p>
+
+    <ul class="risk-list">
+      <li><span class="risk-text">Bewegungseinschränkung des Großzehengrundgelenks</span><span class="risk-badge">ca. 12 %</span></li>
+      <li><span class="risk-text">Notwendigkeit einer erneuten Operation</span><span class="risk-badge">ca. 5–12 %</span></li>
+      <li><span class="risk-text">Erneute leichte Fehlstellung im Verlauf von Jahrzehnten (Rezidiv) &mdash; radiologisch nachweisbar; eine Rezidiv-Fehlstellung ist nicht in jedem Fall mit Beschwerden verbunden oder erfordert eine erneute Operation. Innerhalb der ersten 5–10 Jahre nach der OP wird eine Rate von ca. 4–12 % berichtet.</span><span class="risk-badge">langfristig 30–70 %</span></li>
+      <li><span class="risk-text">Überkorrektur mit gegensinniger Schiefstellung (Hallux varus)</span><span class="risk-badge">ca. 5 %</span></li>
+      <li><span class="risk-text">Veränderung der Belastung mit Schmerzen unter den anderen Mittelfußknochen (Transfermetatarsalgie)</span><span class="risk-badge">ca. 3 %</span></li>
+      <li><span class="risk-text">Verzögerte oder ausbleibende Heilung der Knochendurchtrennung (Pseudarthrose)</span><span class="risk-badge">ca. 3 %</span></li>
+      <li><span class="risk-text">Wundheilungsstörung</span><span class="risk-badge">ca. 3 %</span></li>
+      <li><span class="risk-text">Durchblutungsstörung des Mittelfußköpfchens (Köpfchennekrose)</span><span class="risk-badge">ca. 1,7 %</span></li>
+      <li><span class="risk-text">Wundinfektion</span><span class="risk-badge">ca. 1,5 %</span></li>
+    </ul>
+
+    <p style="font-size:13px;margin-top:12px"><strong>Weitere mögliche Risiken</strong> (in der Literatur ohne präzise Häufigkeitsangabe):</p>
+    <ul class="risk-list-qual">
+      <li>Verkürzung des ersten Strahls oder Höhenversatz nach oben oder unten</li>
+      <li>Sekundäre Arthrose des Großzehengrundgelenks</li>
+      <li>Beeinträchtigung der Sehnen mit Funktionseinschränkung</li>
+      <li>Sekundäre Beschwerden an den Sesambeinen</li>
+      <li>Lageveränderung oder Bruch des eingebrachten Schraubenmaterials</li>
+      <li>Knochenbruch im Bereich der Knochendurchtrennung</li>
+    </ul>
+
+    <div class="info-box">
+      Welche Risiken im Einzelfall besonders relevant sind, hängt von Ihrer individuellen Situation ab &mdash; etwa von Vorerkrankungen, Voroperationen, Knochenqualität oder begleitenden Fußdeformitäten. Diese individuellen Risikofaktoren werden im persönlichen Aufklärungsgespräch besprochen.
+    </div>
+
+    <div class="source-footer">
+      Diese Information orientiert sich an der S2e-Leitlinie Hallux valgus der DGOU (AWMF-Register-Nr. 187-051, Stand 2024). Häufigkeitsangaben zu Komplikationen basieren auf einer eigenen Auswertung der wissenschaftlichen Literatur.
+    </div>
+
+    <div class="nav">
+      <button class="btn-secondary" onclick="goPrev()">Zurück</button>
+      <button class="btn-primary" onclick="goNext()">Weiter</button>
+    </div>
+  </section>
+
+  <!-- Seite 4: Bestätigung -->
+  <section class="slide slide-confirm" data-step="4">
+    <svg class="slide-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="32" cy="32" r="24"/>
+      <path d="M22 32 L 30 40 L 44 24"/>
+    </svg>
+    <h2>Aufklärung abgeschlossen</h2>
+    <p>Sie haben alle Informationen zur geplanten Operation gesehen — einschließlich der Beschreibung des Eingriffs, der dargestellten Risiken und der Hinweise zur Nachbehandlung.</p>
+
+    <div class="info-box">
+      Mit dem folgenden Button bestätigen Sie, die Online-Aufklärung vollständig angesehen zu haben. Anschließend wird ein <strong>Dokument zum Ausdrucken</strong> erstellt. Bitte drucken Sie es aus, füllen Sie die persönlichen Felder von Hand aus und unterschreiben Sie es. Bringen Sie das unterschriebene Dokument zum nächsten Termin in die Klinik mit.
+    </div>
+
+    <button class="btn-primary btn-large" id="confirmBtn" onclick="confirmAufklaerung()">Aufklärung bestätigen</button>
+
+    <div class="confirm-status" id="confirmStatus">✓ Aufklärung bestätigt</div>
+
+    <!-- Druckdokument -->
+    <div class="print-doc" id="printDoc">
+      <div class="print-doc-header">
+        <h3>Bestätigung zur OP-Aufklärung</h3>
+        <div class="placeholder">Klinikkopf — bitte vor Druck einfügen<br>(Klinikname, Adresse, Operateur)</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <div class="field-label">Eingriff</div>
+          <div class="filled">Hallux valgus — Chevron-Akin-Osteotomie</div>
+        </div>
+      </div>
+
+      <div class="timestamp" id="printTimestamp">Aufklärung gesichtet am: —</div>
+
+      <div class="field-row">
+        <div class="field">
+          <div class="field-label">Vorname, Nachname</div>
+          <div class="field-line"></div>
+        </div>
+        <div class="field">
+          <div class="field-label">Geburtsdatum</div>
+          <div class="field-line"></div>
+        </div>
+      </div>
+
+      <p style="margin-top:14px;font-size:11.5px;line-height:1.5">
+        Hiermit bestätige ich, die Online-Aufklärung zum geplanten Eingriff vollständig angesehen zu haben. Ich habe insbesondere
+      </p>
+      <ul style="margin:4px 0 8px 0;padding-left:20px;font-size:11.5px;line-height:1.5">
+        <li>die Beschreibung des operativen Vorgehens zur Kenntnis genommen,</li>
+        <li>die dargestellten Risiken und möglichen Komplikationen zur Kenntnis genommen,</li>
+        <li>die Informationen zur Nachbehandlung zur Kenntnis genommen.</li>
+      </ul>
+      <p style="font-size:11.5px;line-height:1.5">
+        Mir ist bekannt, dass diese Online-Aufklärung das ärztliche Aufklärungsgespräch <strong>ergänzt und nicht ersetzt</strong>. Das persönliche Aufklärungsgespräch werde ich mit dem Operateur durchführen / habe ich mit dem Operateur durchgeführt.
+      </p>
+
+      <div class="signature-block">
+        <div class="field-row">
+          <div class="field">
+            <div class="field-label">Ort</div>
+            <div class="field-line"></div>
+          </div>
+          <div class="field">
+            <div class="field-label">Datum</div>
+            <div class="field-line"></div>
+          </div>
+        </div>
+        <div class="field-row" style="margin-top:14px">
+          <div class="field" style="flex:1 1 100%">
+            <div class="field-label">Unterschrift Patient(in)</div>
+            <div class="field-line"></div>
+          </div>
+        </div>
+        <div class="field-row" style="margin-top:14px">
+          <div class="field">
+            <div class="field-label">Datum</div>
+            <div class="field-line"></div>
+          </div>
+          <div class="field">
+            <div class="field-label">Unterschrift Operateur(in)</div>
+            <div class="field-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer-print">
+        Diese Bestätigung dokumentiert die Sichtung der Online-Aufklärung. Das ärztliche Aufklärungsgespräch ist Pflichtbestandteil jeder Operation und unterliegt der Dokumentation in der Patientenakte.
+      </div>
+      <div class="source-footer-print">
+        Diese Information orientiert sich an der S2e-Leitlinie Hallux valgus der DGOU (AWMF-Register-Nr. 187-051, Stand 2024). Häufigkeitsangaben zu Komplikationen basieren auf einer eigenen Auswertung der wissenschaftlichen Literatur.
+      </div>
+    </div>
+
+    <div class="nav" id="postConfirmNav" style="display:none">
+      <button class="btn-secondary" onclick="goPrev()">Zurück</button>
+      <button class="btn-primary" onclick="window.print()">Dokument drucken</button>
+    </div>
+
+    <div class="nav" id="preConfirmNav">
+      <button class="btn-secondary" onclick="goPrev()">Zurück</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  var currentStep = 0;
+  var totalSteps = 5;
+
+  function showStep(step) {
+    var slides = document.querySelectorAll(".slide");
+    slides.forEach(function(s) { s.classList.remove("active"); });
+    var target = document.querySelector('.slide[data-step="' + step + '"]');
+    if (target) target.classList.add("active");
+
+    var dots = document.querySelectorAll("#progress .progress-dot");
+    dots.forEach(function(d, i) {
+      d.classList.remove("active", "done");
+      if (i < step) d.classList.add("done");
+      else if (i === step) d.classList.add("active");
+    });
+
+    currentStep = step;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function goNext() {
+    if (currentStep < totalSteps - 1) showStep(currentStep + 1);
+  }
+  function goPrev() {
+    if (currentStep > 0) showStep(currentStep - 1);
+  }
+
+  function confirmAufklaerung() {
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2, "0");
+    var mm = String(now.getMonth() + 1).padStart(2, "0");
+    var yyyy = now.getFullYear();
+    var hh = String(now.getHours()).padStart(2, "0");
+    var min = String(now.getMinutes()).padStart(2, "0");
+    var stamp = dd + "." + mm + "." + yyyy + " um " + hh + ":" + min + " Uhr";
+
+    document.getElementById("printTimestamp").textContent = "Aufklärung gesichtet am: " + stamp;
+    document.getElementById("confirmStatus").classList.add("show");
+    document.getElementById("printDoc").classList.add("show");
+    document.getElementById("confirmBtn").style.display = "none";
+    document.getElementById("preConfirmNav").style.display = "none";
+    document.getElementById("postConfirmNav").style.display = "flex";
+
+    setTimeout(function() {
+      document.getElementById("printDoc").scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
+
+  // Tastatur-Navigation (optional, hilft auf Desktop)
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "ArrowRight") goNext();
+    if (e.key === "ArrowLeft") goPrev();
+  });
+</script>
+</body>
+</html>
