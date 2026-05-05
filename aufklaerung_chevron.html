@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#006B6F">
-<title>OP-Aufklärung Hallux valgus | Fußzentrum</title>
+<title>Information Hallux valgus | Fußzentrum</title>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; }
@@ -247,32 +247,27 @@
     margin: 8px 0 12px 0;
   }
   .risk-list li {
-    background: rgba(0, 107, 111, 0.04);
-    border: 1px solid rgba(0, 107, 111, 0.1);
+    background: #fff;
+    border: 1px solid rgba(0, 107, 111, 0.18);
+    border-left: 3px solid #006B6F;
     border-radius: 6px;
-    padding: 8px 10px;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
     font-size: 13px;
-    line-height: 1.45;
+    line-height: 1.5;
     color: #2D3748;
   }
-  .risk-list .risk-text {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
   .risk-list .risk-badge {
-    flex: 0 0 auto;
-    background: #006B6F;
-    color: #fff;
-    font-size: 11px;
+    display: block;
+    color: #006B6F;
+    font-size: 16px;
     font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 10px;
-    white-space: nowrap;
-    align-self: flex-start;
+    margin-bottom: 2px;
+    letter-spacing: 0.2px;
+  }
+  .risk-list .risk-text {
+    display: block;
+    color: #2D3748;
   }
   .risk-list-qual {
     list-style: disc;
@@ -284,16 +279,6 @@
     margin-bottom: 4px;
     color: #4A5568;
     line-height: 1.5;
-  }
-  /* Desktop: Risiken zweispaltig */
-  @media (min-width: 600px) {
-    .risk-list {
-      column-count: 2;
-      column-gap: 10px;
-    }
-    .risk-list li {
-      break-inside: avoid;
-    }
   }
 
   /* Navigation */
@@ -537,7 +522,7 @@
       <span class="titel-zwischen">und der operativen Option mit</span>
       <span class="titel-haupt">Chevron-Akin-Osteotomie</span>
     </h1>
-    <button class="btn-primary btn-large" onclick="goNext()">Aufklärung starten</button>
+    <button class="btn-primary btn-large" onclick="goNext()">Information ansehen</button>
     <div class="disclaimer-cover">
       Diese Information ergänzt das ärztliche Aufklärungsgespräch und ersetzt es nicht. Das persönliche Gespräch mit Ihrer Operateurin/Ihrem Operateur ist Pflichtbestandteil jeder Operation.
     </div>
@@ -605,7 +590,7 @@
       <circle cx="42" cy="32" r="2" fill="currentColor"/>
     </svg>
     <h2>Welche nicht-operativen Möglichkeiten gibt es?</h2>
-    <p>Bevor eine Operation in Betracht gezogen wird, werden in der Regel zunächst nicht-operative Behandlungen empfohlen. Üblicherweise sollten diese über mindestens drei Monate angewendet werden, bevor eine operative Therapie erwogen wird. Die nicht-operative Behandlung kann Beschwerden lindern.</p>
+    <p>Bevor eine Operation in Betracht gezogen wird, werden in der Regel zunächst nicht-operative Behandlungen empfohlen. Üblicherweise sollten diese über mindestens drei Monate angewendet werden, bevor eine operative Therapie erwogen wird. Die nicht-operative Behandlung kann Beschwerden lindern. Sinnvoll ist es hier, verschiedene Maßnahmen auszuprobieren. Eine Beschwerdedauer von drei Monaten vor einem Eingriff stellt dabei die geforderte Mindestdauer dar &mdash; empfehlenswert ist es, hier deutlich länger mit der Entscheidung zu warten.</p>
 
     <h3>Schuhe und orthopädische Hilfsmittel</h3>
     <ul>
@@ -647,7 +632,7 @@
     </svg>
     <h2>Wie läuft die Operation ab?</h2>
 
-    <p>Wenn nicht-operative Maßnahmen über mindestens drei Monate nicht zu einer ausreichenden Linderung der Beschwerden führen und die Lebensqualität spürbar eingeschränkt ist, kann eine Operation in Betracht gezogen werden. Die Entscheidung wird gemeinsam mit Ihnen getroffen &mdash; sie erfolgt nicht allein anhand der sichtbaren Fehlstellung, sondern auf Grundlage Ihrer individuellen Beschwerden und Lebenssituation.</p>
+    <p>Wenn nicht-operative Maßnahmen über Monate nicht zu einer ausreichenden Linderung der Beschwerden führen und die Lebensqualität spürbar eingeschränkt ist, kann eine Operation in Betracht gezogen werden. Die Entscheidung wird gemeinsam mit Ihnen getroffen &mdash; sie erfolgt nicht allein anhand der sichtbaren Fehlstellung, sondern auf Grundlage Ihrer individuellen Beschwerden und Lebenssituation.</p>
 
     <h3>Was soll mit der Operation erreicht werden?</h3>
     <p>Das primäre Ziel der Operation ist die <strong>Schmerzreduktion</strong>. Sekundäre Ziele sind die Korrektur der Fehlstellung und eine Verbesserung der Funktion. Ein bestimmtes Ergebnis kann nicht garantiert werden &mdash; das individuelle Behandlungsergebnis hängt von vielen Faktoren ab.</p>
@@ -660,8 +645,8 @@
     </div>
 
     <h3>Die Chevron-Osteotomie mit ergänzender Akin-Osteotomie</h3>
-    <p>Bei der Chevron-Osteotomie wird der erste Mittelfußknochen am körperfernen Ende V-förmig durchtrennt. Das Mittelfußköpfchen wird dann seitlich verschoben, um die Achse des Großzehengrundgelenks zu korrigieren. Die ergänzende Akin-Osteotomie ist eine Feinkorrektur am Grundglied der Großzehe: ein kleiner keilförmiger Knochenanteil wird entfernt, um die Stellung der Zehe selbst weiter anzupassen.</p>
-    <p>Beide Knochendurchtrennungen werden mit kleinen Titanschrauben stabilisiert. Diese verbleiben in der Regel im Knochen und müssen nicht zwingend entfernt werden.</p>
+    <p>Bei der Chevron-Osteotomie wird der erste Mittelfußknochen am körperfernen Ende V-förmig durchtrennt. Das Mittelfußköpfchen wird dann seitlich verschoben, um die Achse des Großzehengrundgelenks zu korrigieren. Die ergänzende Akin-Osteotomie ist eine Feinkorrektur am Grundglied der Großzehe: ein kleiner keilförmiger Knochenanteil wird entfernt, um die Stellung der Zehe selbst weiter anzupassen. Zusätzlich zu den knöchernen Korrekturen erfolgt eine Weichteilkorrektur mit Verlängerung von kontrakten Strukturen und Raffung von Sehnen und Kapsel.</p>
+    <p>Die Chevron-Osteotomie wird in aller Regel mit einer Schraube, die Akin-Osteotomie in unserem Vorgehen mit einem ultrastabilen Faden fixiert.</p>
 
     <h3>Warum dieses Verfahren?</h3>
     <p>Die Wahl des Operationsverfahrens richtet sich nach dem Schweregrad der Fehlstellung, der anhand der Röntgenwinkel bestimmt wird. Die Chevron-Akin-Osteotomie wird bei leichtem bis moderatem Hallux valgus empfohlen (Hallux-Valgus-Winkel ≤ 40°, Intermetatarsalwinkel ≤ 18°). Bei stärker ausgeprägten Fehlstellungen kommen andere Verfahren in Betracht &mdash; diese werden im persönlichen Gespräch erläutert, falls sie für Sie infrage kommen.</p>
@@ -683,15 +668,15 @@
     <p>Daneben gibt es <strong>eingriffsspezifische Risiken</strong>, über die wir Sie hier ausführlicher informieren möchten. Die folgenden Häufigkeitsangaben sind als Orientierung zu verstehen und stützen sich auf eine eigene Auswertung der wissenschaftlichen Literatur. Die tatsächliche Häufigkeit kann je nach Studie, untersuchter Patientengruppe und Definition der Komplikation abweichen.</p>
 
     <ul class="risk-list">
-      <li><span class="risk-text">Bewegungseinschränkung des Großzehengrundgelenks</span><span class="risk-badge">ca. 12 %</span></li>
-      <li><span class="risk-text">Notwendigkeit einer erneuten Operation</span><span class="risk-badge">ca. 5–12 %</span></li>
-      <li><span class="risk-text">Erneute leichte Fehlstellung im Verlauf von Jahrzehnten (Rezidiv) &mdash; radiologisch nachweisbar; eine Rezidiv-Fehlstellung ist nicht in jedem Fall mit Beschwerden verbunden oder erfordert eine erneute Operation. Innerhalb der ersten 5–10 Jahre nach der OP wird eine Rate von ca. 4–12 % berichtet.</span><span class="risk-badge">langfristig 30–70 %</span></li>
-      <li><span class="risk-text">Überkorrektur mit gegensinniger Schiefstellung (Hallux varus)</span><span class="risk-badge">ca. 5 %</span></li>
-      <li><span class="risk-text">Veränderung der Belastung mit Schmerzen unter den anderen Mittelfußknochen (Transfermetatarsalgie)</span><span class="risk-badge">ca. 3 %</span></li>
-      <li><span class="risk-text">Verzögerte oder ausbleibende Heilung der Knochendurchtrennung (Pseudarthrose)</span><span class="risk-badge">ca. 3 %</span></li>
-      <li><span class="risk-text">Wundheilungsstörung</span><span class="risk-badge">ca. 3 %</span></li>
-      <li><span class="risk-text">Durchblutungsstörung des Mittelfußköpfchens (Köpfchennekrose)</span><span class="risk-badge">ca. 1,7 %</span></li>
-      <li><span class="risk-text">Wundinfektion</span><span class="risk-badge">ca. 1,5 %</span></li>
+      <li><span class="risk-badge">ca. 12 %</span><span class="risk-text">Bewegungseinschränkung des Großzehengrundgelenks</span></li>
+      <li><span class="risk-badge">ca. 5–12 %</span><span class="risk-text">Notwendigkeit einer erneuten Operation</span></li>
+      <li><span class="risk-badge">langfristig 30–70 %</span><span class="risk-text">Erneute leichte Fehlstellung im Verlauf von Jahrzehnten (Rezidiv) &mdash; radiologisch nachweisbar; eine Rezidiv-Fehlstellung ist nicht in jedem Fall mit Beschwerden verbunden oder erfordert eine erneute Operation. Innerhalb der ersten 5–10 Jahre nach der OP wird eine Rate von ca. 4–12 % berichtet.</span></li>
+      <li><span class="risk-badge">ca. 5 %</span><span class="risk-text">Überkorrektur mit gegensinniger Schiefstellung (Hallux varus)</span></li>
+      <li><span class="risk-badge">ca. 3 %</span><span class="risk-text">Veränderung der Belastung mit Schmerzen unter den anderen Mittelfußknochen (Transfermetatarsalgie)</span></li>
+      <li><span class="risk-badge">ca. 3 %</span><span class="risk-text">Verzögerte oder ausbleibende Heilung der Knochendurchtrennung (Pseudarthrose)</span></li>
+      <li><span class="risk-badge">ca. 3 %</span><span class="risk-text">Wundheilungsstörung</span></li>
+      <li><span class="risk-badge">ca. 1,7 %</span><span class="risk-text">Durchblutungsstörung des Mittelfußköpfchens (Köpfchennekrose)</span></li>
+      <li><span class="risk-badge">ca. 1,5 %</span><span class="risk-text">Wundinfektion</span></li>
     </ul>
 
     <p style="font-size:13px;margin-top:12px"><strong>Weitere mögliche Risiken</strong> (in der Literatur ohne präzise Häufigkeitsangabe):</p>
@@ -724,21 +709,21 @@
       <circle cx="32" cy="32" r="24"/>
       <path d="M22 32 L 30 40 L 44 24"/>
     </svg>
-    <h2>Aufklärung abgeschlossen</h2>
+    <h2>Information abgeschlossen</h2>
     <p>Sie haben alle Informationen zur geplanten Operation gesehen — einschließlich der Beschreibung des Eingriffs, der dargestellten Risiken und der Hinweise zur Nachbehandlung.</p>
 
     <div class="info-box">
-      Mit dem folgenden Button bestätigen Sie, die Online-Aufklärung vollständig angesehen zu haben. Anschließend wird ein <strong>Dokument zum Ausdrucken</strong> erstellt. Bitte drucken Sie es aus, füllen Sie die persönlichen Felder von Hand aus und unterschreiben Sie es. Bringen Sie das unterschriebene Dokument zum nächsten Termin in die Klinik mit.
+      Mit dem folgenden Button bestätigen Sie, dass Sie das Online-Informationsmaterial vollständig angesehen haben. Anschließend wird ein <strong>Dokument zum Ausdrucken</strong> erstellt. Bitte drucken Sie es aus, füllen Sie die persönlichen Felder von Hand aus und unterschreiben Sie es. Bringen Sie das unterschriebene Dokument zum nächsten Termin in die Klinik mit.
     </div>
 
-    <button class="btn-primary btn-large" id="confirmBtn" onclick="confirmAufklaerung()">Aufklärung bestätigen</button>
+    <button class="btn-primary btn-large" id="confirmBtn" onclick="confirmAufklaerung()">Sichtung bestätigen</button>
 
-    <div class="confirm-status" id="confirmStatus">✓ Aufklärung bestätigt</div>
+    <div class="confirm-status" id="confirmStatus">✓ Sichtung bestätigt</div>
 
     <!-- Druckdokument -->
     <div class="print-doc" id="printDoc">
       <div class="print-doc-header">
-        <h3>Bestätigung zur OP-Aufklärung</h3>
+        <h3>Bestätigung zur Sichtung des Informationsmaterials</h3>
         <div class="placeholder">Klinikkopf — bitte vor Druck einfügen<br>(Klinikname, Adresse, Operateur)</div>
       </div>
 
@@ -749,7 +734,7 @@
         </div>
       </div>
 
-      <div class="timestamp" id="printTimestamp">Aufklärung gesichtet am: —</div>
+      <div class="timestamp" id="printTimestamp">Information gesichtet am: —</div>
 
       <div class="field-row">
         <div class="field">
@@ -763,15 +748,10 @@
       </div>
 
       <p style="margin-top:14px;font-size:11.5px;line-height:1.5">
-        Hiermit bestätige ich, die Online-Aufklärung zum geplanten Eingriff vollständig angesehen zu haben. Ich habe insbesondere
+        Hiermit bestätige ich, das Online-Informationsmaterial zum geplanten Eingriff vollständig angesehen zu haben.
       </p>
-      <ul style="margin:4px 0 8px 0;padding-left:20px;font-size:11.5px;line-height:1.5">
-        <li>die Beschreibung des operativen Vorgehens zur Kenntnis genommen,</li>
-        <li>die dargestellten Risiken und möglichen Komplikationen zur Kenntnis genommen,</li>
-        <li>die Informationen zur Nachbehandlung zur Kenntnis genommen.</li>
-      </ul>
       <p style="font-size:11.5px;line-height:1.5">
-        Mir ist bekannt, dass diese Online-Aufklärung das ärztliche Aufklärungsgespräch <strong>ergänzt und nicht ersetzt</strong>. Das persönliche Aufklärungsgespräch werde ich mit dem Operateur durchführen / habe ich mit dem Operateur durchgeführt.
+        Mir ist bekannt, dass dieses Online-Informationsmaterial der vorbereitenden Information dient und das ärztliche Aufklärungsgespräch <strong>nicht ersetzt</strong>. Das persönliche Aufklärungsgespräch werde ich mit dem Operateur durchführen / habe ich mit dem Operateur durchgeführt.
       </p>
 
       <div class="signature-block">
@@ -804,7 +784,7 @@
       </div>
 
       <div class="disclaimer-print">
-        Diese Bestätigung dokumentiert die Sichtung der Online-Aufklärung. Das ärztliche Aufklärungsgespräch ist Pflichtbestandteil jeder Operation und unterliegt der Dokumentation in der Patientenakte.
+        Diese Bestätigung dokumentiert die Sichtung des Online-Informationsmaterials. Das ärztliche Aufklärungsgespräch ist Pflichtbestandteil jeder Operation und unterliegt der Dokumentation in der Patientenakte.
       </div>
       <div class="source-footer-print">
         Diese Information orientiert sich an der S2e-Leitlinie Hallux valgus der DGOU (AWMF-Register-Nr. 187-051, Stand 2024). Häufigkeitsangaben zu Komplikationen basieren auf einer eigenen Auswertung der wissenschaftlichen Literatur.
@@ -860,7 +840,7 @@
     var min = String(now.getMinutes()).padStart(2, "0");
     var stamp = dd + "." + mm + "." + yyyy + " um " + hh + ":" + min + " Uhr";
 
-    document.getElementById("printTimestamp").textContent = "Aufklärung gesichtet am: " + stamp;
+    document.getElementById("printTimestamp").textContent = "Information gesichtet am: " + stamp;
     document.getElementById("confirmStatus").classList.add("show");
     document.getElementById("printDoc").classList.add("show");
     document.getElementById("confirmBtn").style.display = "none";
